@@ -2,7 +2,6 @@
 #The name of the workflow, will be displayed on the Github actions page
 name: Continuous Deployment
 # when to execute it, similar to Azure DevOps trigger keyword
-#testing dev super branch
 on: [push,pull_request]
 
 # list of jobs to execute
@@ -47,5 +46,5 @@ jobs:
           run: terraform plan $SOURCE_DIR -no-color
 
         - name: Terraform Apply
-          #if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+          if: github.event_name == 'push'
           run: terraform apply -auto-approve $SOURCE_DIR
