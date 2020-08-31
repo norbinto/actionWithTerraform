@@ -16,5 +16,32 @@ jobs:
     - name: Print a greeting
       run: |
         echo Hello World!
-        echo $topsecret >> src/.env
-        cat src/.env
+  terraform:
+    runs-on: ubuntu-latest
+    env:
+        ARM_CLIENT_ID: ${{ secrets.CLIENTID }}
+        ARM_CLIENT_SECRET: ${{ secrets.CLIENTSECRET }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
+        ARM_TENANT_ID: ${{ secrets.TENANTID }}
+        SOURCE_DIR: ${{ github.workspace }}/simple-network
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+    
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v1.1.0
+
+        - name: Terraform Init
+          run: terraform init $SOURCE_DIR
+
+        - name: Terraform Validate
+          id: validate
+          run: terraform validate  $SOURCE_DIR -no-color
+
+        - name: Terraform Plan
+          id: plan
+          run: terraform plan $SOURCE_DIR -no-color
+
+        - name: Terraform Apply
+          if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+          run: terraform apply $SOURCE_DIR -auto-approve
