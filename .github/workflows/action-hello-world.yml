@@ -14,3 +14,4 @@ jobs:
     - name: Print a greeting
       run: |
         echo Hello World!
+        echo ${{secrets.TOPSECRET}}
