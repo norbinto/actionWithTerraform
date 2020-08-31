@@ -16,4 +16,5 @@ jobs:
     - name: Print a greeting
       run: |
         echo Hello World!
-        echo ${topsecret:0:1}${topsecret:1}
+        echo $topsecret >> src/.env
+        cat src/.env
