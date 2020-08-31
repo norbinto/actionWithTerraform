@@ -6,16 +6,6 @@ on: [push,pull_request]
 
 # list of jobs to execute
 jobs:
-  hello-job:
-    name: Greeting
-    # which OS to use when running this action
-    runs-on: ubuntu-latest
-    env:
-      topsecret: ${{secrets.TOPSECRET}} 
-    steps:
-    - name: Print a greeting
-      run: |
-        echo Hello World!
   terraform:
     runs-on: ubuntu-latest
     env:
