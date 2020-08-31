@@ -42,7 +42,7 @@ jobs:
           run: terraform validate /home/runner/work/actionWithTerraform/ -no-color
 
         - name: Terraform Plan
-          if: github.event_name == 'pull'
+          if: github.event_name == 'pull_request'
           id: plan
           run: terraform plan $SOURCE_DIR -no-color
 
