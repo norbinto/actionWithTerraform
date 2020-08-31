@@ -4,6 +4,6 @@ terraform {
     resource_group_name  = "rg-norbi-terraform"
     storage_account_name = "norbisaterraform"
     container_name       = "norbitfstate"
-    key                  = "terraform.tfstate"
+    key                  = "terraform.test.tfstate"
   }
 }

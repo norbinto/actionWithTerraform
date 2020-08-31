@@ -15,6 +15,18 @@ jobs:
         ARM_TENANT_ID: ${{ secrets.TENANTID }}
         SOURCE_DIR: ${{ github.workspace }}/simple-network
     steps:
+        - name: Set SourceDir based on branch
+          if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
+          run: echo '::set-env name=SOURCE_DIR::${{ github.workspace }}/infratructure/dev'
+        
+        - name: Set SourceDir based on branch
+          if: github.ref == 'refs/heads/test' && github.event_name == 'push'
+          run: echo '::set-env name=SOURCE_DIR::${{ github.workspace }}/infratructure/test'
+
+        - name: Set SourceDir based on  prod branch
+          if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+          run: echo '::set-env name=SOURCE_DIR::${{ github.workspace }}/infratructure/prod'
+
         - name: Checkout
           uses: actions/checkout@v2
     
