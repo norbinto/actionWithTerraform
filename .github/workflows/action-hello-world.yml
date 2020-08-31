@@ -25,9 +25,6 @@ jobs:
         ARM_TENANT_ID: ${{ secrets.TENANTID }}
         SOURCE_DIR: ${{ github.workspace }}/simple-network
     steps:
-        - name: print_workspace
-          run: echo Workspace = ${{ github.workspace }}
-          
         - name: Checkout
           uses: actions/checkout@v2
     
@@ -42,6 +39,7 @@ jobs:
           run: terraform validate /home/runner/work/actionWithTerraform/ -no-color
 
         - name: Terraform Plan
+          if: github.event_name == 'pull'
           id: plan
           run: terraform plan $SOURCE_DIR -no-color
 
