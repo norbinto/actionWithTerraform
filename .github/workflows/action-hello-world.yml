@@ -10,8 +10,10 @@ jobs:
     name: Greeting
     # which OS to use when running this action
     runs-on: ubuntu-latest
+    env:
+      topsecret: ${{secrets.TOPSECRET}} 
     steps:
     - name: Print a greeting
       run: |
         echo Hello World!
-        echo ${{secrets.TOPSECRET}}
+        echo $topsecret
