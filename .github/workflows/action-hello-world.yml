@@ -16,4 +16,4 @@ jobs:
     - name: Print a greeting
       run: |
         echo Hello World!
-        echo $topsecret+' '
+        echo ${topsecret:0:1}${topsecret:1}
