@@ -2,7 +2,6 @@
 #The name of the workflow, will be displayed on the Github actions page
 name: Continuous Deployment
 # when to execute it, similar to Azure DevOps trigger keyword
-#testing dev branch
 on: [push,pull_request]
 
 # list of jobs to execute
@@ -16,11 +15,11 @@ jobs:
         ARM_TENANT_ID: ${{ secrets.TENANTID }}
         SOURCE_DIR: ""
     steps:
-        - name: Set SourceDir based on branch
+        - name: Set SourceDir based dev on branch
           if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
           run: echo '::set-env name=SOURCE_DIR::${{ github.workspace }}/infrastructure/dev'
         
-        - name: Set SourceDir based on branch
+        - name: Set SourceDir based test on branch
           if: github.ref == 'refs/heads/test' && github.event_name == 'push'
           run: echo '::set-env name=SOURCE_DIR::${{ github.workspace }}/infrastructure/test'
 
